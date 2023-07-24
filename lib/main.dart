@@ -1,3 +1,4 @@
+import 'package:calling_zegocloud/call_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,6 +22,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final callIDController = TextEditingController(text: 'Test Call ID');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zego Calling'),
@@ -29,21 +31,28 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Center(
-              child: Chip(
-                label: const Text(
-                  'Jack Muller',
-                  style: TextStyle(fontSize: 25),
+            Expanded(
+              child: Center(
+                child: Chip(
+                  label: TextFormField(
+                    controller: callIDController,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                  backgroundColor: Colors.teal,
                 ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                backgroundColor: Colors.orange,
               ),
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return CallPage(callID: callIDController.text);
+                }));
+              },
               label: const Text(
                 'Call',
                 style: TextStyle(fontSize: 20),
