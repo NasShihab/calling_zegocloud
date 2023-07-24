@@ -1,13 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
-String userID = Random().nextInt(10000).toString();
+
 
 class CallPage extends StatelessWidget {
-  const CallPage({super.key, required this.callID});
+  const CallPage({super.key, required this.callID, required this.userID});
   final String callID;
+  final String userID;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,8 @@ class CallPage extends StatelessWidget {
       callID: callID,
       userID: userID,
       userName: 'user_$userID',
-      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        ..onOnlySelfInRoom = (context) =>Navigator.of(context).pop(),
     );
   }
 }
